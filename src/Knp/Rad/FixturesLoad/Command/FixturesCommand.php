@@ -142,7 +142,7 @@ class FixturesCommand extends ContainerAwareCommand
 
     /**
      * @param OutputInterface $output
-     * @param boolean $verbosity
+     * @param boolean         $verbosity
      *
      * @return Formater[]
      */

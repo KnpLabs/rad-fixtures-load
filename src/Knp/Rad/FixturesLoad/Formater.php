@@ -8,7 +8,7 @@ interface Formater
 {
     const VERBOSITY_NORMAL = false;
 
-    const VERBOSITY_EXTRA  = true;
+    const VERBOSITY_EXTRA = true;
 
     /**
      * @param OutputInterface $output

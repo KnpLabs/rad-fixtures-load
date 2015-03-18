@@ -9,12 +9,12 @@ use Nelmio\Alice\ProcessorInterface;
 class FixturesFactory
 {
     /**
-     * @var ProcessorInterface[] $processors
+     * @var ProcessorInterface[]
      */
     private $processors = [];
 
     /**
-     * @var object[] $providers
+     * @var object[]
      */
     private $providers = [];
 
@@ -44,7 +44,7 @@ class FixturesFactory
 
     /**
      * @param ObjectManager $om
-     * @param string|null $locale
+     * @param string|null   $locale
      *
      * @return Fixtures
      */

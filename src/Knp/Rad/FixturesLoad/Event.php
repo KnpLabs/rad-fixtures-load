@@ -8,19 +8,19 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 class Event extends BaseEvent
 {
     /**
-     * @var Bundle $bundle
+     * @var Bundle
      */
     private $bundle;
 
     /**
-     * @var string $file
+     * @var string
      */
     private $file;
 
     /**
-     * @var object[] $objects
+     * @var object[]
      */
-    private $object;
+    private $objects;
 
     /**
      * @param Bundle $bundle
