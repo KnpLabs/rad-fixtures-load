@@ -1,0 +1,10 @@
+services:
+    knp_rad_fixtures_load.loader:
+        class: Knp\Rad\FixturesLoad\Loader
+        arguments:
+            - @doctrine
+            - @knp_rad_fixtures_load.fixtures_factory
+            - @event_dispatcher
+
+    knp_rad_fixtures_load.fixtures_factory:
+        class: Knp\Rad\FixturesLoad\FixturesFactory
