@@ -1,10 +1,19 @@
 services:
-    knp_rad_fixtures_load.loader:
+    knp_rad_fixtures_load.orm_loader:
         class: Knp\Rad\FixturesLoad\Loader
         arguments:
             - @doctrine
             - @knp_rad_fixtures_load.fixtures_factory
             - @event_dispatcher
+            - Resources/fixtures/orm
+
+    knp_rad_fixtures_load.odm_loader:
+        class: Knp\Rad\FixturesLoad\Loader
+        arguments:
+            - @doctrine_mongodb
+            - @knp_rad_fixtures_load.fixtures_factory
+            - @event_dispatcher
+            - Resources/fixtures/odm
 
     knp_rad_fixtures_load.fixtures_factory:
         class: Knp\Rad\FixturesLoad\FixturesFactory
