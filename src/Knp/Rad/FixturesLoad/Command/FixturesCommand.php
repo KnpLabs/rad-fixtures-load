@@ -57,12 +57,11 @@ class FixturesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $application = $this->getApplication();
+        $bundles     = [];
 
         if (false === $application instanceof Application) {
             throw new \RuntimeException('Only Symfony\Bundle\FrameworkBundle\Console\Application supported.');
         }
-
-        $bundles = [];
 
         if (true === $input->hasOption('bundle')) {
             $bundles = $input->getOption('bundle');
@@ -73,7 +72,6 @@ class FixturesCommand extends ContainerAwareCommand
         }
 
         $bundles = $this->resolveBundles($bundles);
-
         $filters = [];
 
         if (true === $input->hasOption('filter')) {
@@ -84,12 +82,7 @@ class FixturesCommand extends ContainerAwareCommand
             $filters = ['*.yml'];
         }
 
-        foreach ($bundles as $bundle) {
-            $this->getLoader()->loadFixtures($bundle, $filters, $input->getOption('connection'));
-        }
-
-        $formaters = $this->getFormaters($output, $input->getOption('verbose'));
-
+        $formaters  = $this->getFormaters($output, $input->getOption('verbose'));
         $dispatcher = $this->getContainer()->get('event_dispatcher');
 
         foreach ($formaters as $formater) {
