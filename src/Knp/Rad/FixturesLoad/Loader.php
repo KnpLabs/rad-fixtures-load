@@ -49,6 +49,10 @@ class Loader
      */
     public function loadFixtures(Bundle $bundle, array $filters, $connection, $locale = null)
     {
+        if (false === is_dir(sprintf('%s/Resources/fixtures/orm', $bundle->getPath()))) {
+            return;
+        }
+
         $files = (new Finder())
             ->files()
             ->in(sprintf('%s/Resources/fixtures/orm', $bundle->getPath()))
