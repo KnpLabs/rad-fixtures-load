@@ -30,15 +30,26 @@ class Loader
     private $factory;
 
     /**
+     * @var string
+     */
+    private $path;
+
+    /**
      * @param ManagerRegistry          $doctrine
      * @param FixturesFactory          $factory
      * @param EventDispatcherInterface $dispatcher
+     * @param string                   $path
      */
-    public function __construct(ManagerRegistry $doctrine, FixturesFactory $factory, EventDispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        ManagerRegistry $doctrine,
+        FixturesFactory $factory,
+        EventDispatcherInterface $dispatcher,
+        $path
+    ) {
         $this->doctrine   = $doctrine;
         $this->factory    = $factory;
         $this->dispatcher = $dispatcher;
+        $this->path       = $path;
     }
 
     /**
@@ -49,13 +60,13 @@ class Loader
      */
     public function loadFixtures(Bundle $bundle, array $filters, $connection, $locale = null)
     {
-        if (false === is_dir(sprintf('%s/Resources/fixtures/orm', $bundle->getPath()))) {
+        if (!file_exists($path = sprintf('%s/%s', $bundle->getPath(), $this->path))) {
             return;
         }
 
         $files = (new Finder())
             ->files()
-            ->in(sprintf('%s/Resources/fixtures/orm', $bundle->getPath()))
+            ->in($path)
             ->sortByName()
         ;
 

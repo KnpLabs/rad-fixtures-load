@@ -48,6 +48,13 @@ class FixturesCommand extends ContainerAwareCommand
                 'Locale for faked fixtures',
                 'en_US'
             )
+            ->addOption(
+                'type',
+                't',
+                InputOption::VALUE_OPTIONAL,
+                'Type of fixtures (whether ORM or ODM)',
+                null
+            )
         ;
     }
 
@@ -82,16 +89,23 @@ class FixturesCommand extends ContainerAwareCommand
             $filters = ['*.yml'];
         }
 
-        $formaters  = $this->getFormaters($output, $input->getOption('verbose'));
+        if (is_null($type = $input->getOption('type'))) {
+            $type = $this->getContainer()->has('doctrine_mongodb') ? 'odm' : 'orm';
+        }
+
+        $formaters = $this->getFormaters($output, $input->getOption('verbose'));
+
         $dispatcher = $this->getContainer()->get('event_dispatcher');
 
         foreach ($formaters as $formater) {
-            $dispatcher->addListener(Events::PRE_LOAD,   [$formater,  'preLoad']);
-            $dispatcher->addListener(Events::POST_LOAD,  [$formater,  'postLoad']);
+            $dispatcher->addListener(Events::PRE_LOAD,  [$formater,  'preLoad']);
+            $dispatcher->addListener(Events::POST_LOAD, [$formater,  'postLoad']);
         }
 
+        $loader = $this->getLoader($type);
+
         foreach ($bundles as $bundle) {
-            $this->getLoader()->loadFixtures(
+            $loader->loadFixtures(
                 $bundle,
                 $filters,
                 $input->getOption('connection'),
@@ -103,7 +117,7 @@ class FixturesCommand extends ContainerAwareCommand
     /**
      * @param string[] $names
      *
-     * @return Symfony\Component\HttpKernel\Bundle\Bundle[]
+     * @return \Symfony\Component\HttpKernel\Bundle\Bundle[]
      */
     private function resolveBundles(array $names)
     {
@@ -126,18 +140,20 @@ class FixturesCommand extends ContainerAwareCommand
     }
 
     /**
-     * @return Knp\Rad\FixturesLoad\Loader
+     * @param string $type
+     *
+     * @return \Knp\Rad\FixturesLoad\Loader
      */
-    private function getLoader()
+    private function getLoader($type)
     {
-        return $this->getContainer()->get('knp_rad_fixtures_load.loader');
+        return $this->getContainer()->get(sprintf('knp_rad_fixtures_load.%s_loader', $type));
     }
 
     /**
      * @param OutputInterface $output
      * @param boolean         $verbosity
      *
-     * @return Formater[]
+     * @return \Knp\Rad\FixturesLoad\Formater[]
      */
     private function getFormaters(OutputInterface $output, $verbosity)
     {
