@@ -70,3 +70,19 @@ app/console rad:fixtures:load -f dev -f test
 ```
 
 In this case, order doesn't have any importance.
+
+##Use Alice provider or Alice processor
+
+You just have to tag your service with `knp_rad_fixtures_load.provider` or `knp_rad_fixtures_load.processor`.
+
+```yml
+my_bundle.my_provider:
+    class: My\Provider
+    tags:
+        - { name: knp_rad_fixtures_load.provider
+
+my_bundle.my_processor:
+    class: My\Processor # implements Nelmio\Alice\ProcessorInterface
+    tags:
+        - { name: knp_rad_fixtures_load.processor
+```
