@@ -79,10 +79,10 @@ You just have to tag your service with `knp_rad_fixtures_load.provider` or `knp_
 my_bundle.my_provider:
     class: My\Provider
     tags:
-        - { name: knp_rad_fixtures_load.provider
+        - { name: knp_rad_fixtures_load.provider }
 
 my_bundle.my_processor:
     class: My\Processor # implements Nelmio\Alice\ProcessorInterface
     tags:
-        - { name: knp_rad_fixtures_load.processor
+        - { name: knp_rad_fixtures_load.processor }
 ```
