@@ -49,10 +49,10 @@ class FixturesCommand extends ContainerAwareCommand
                 'en_US'
             )
             ->addOption(
-                'schema',
-                'a',
+                'reset-schema',
+                'r',
                 InputOption::VALUE_OPTIONAL,
-                'Perform action on DB schema'
+                'Reset DB schema before loading fixtures'
             )
         ;
     }
@@ -69,10 +69,11 @@ class FixturesCommand extends ContainerAwareCommand
             throw new \RuntimeException('Only Symfony\Bundle\FrameworkBundle\Console\Application supported.');
         }
 
-        if (true === $input->hasOption('schema') &&
-            ('create' === $input->getOption('schema') || ('drop-create' === $input->getOption('schema')))
-        ) {
-            $this->getLoader()->performSchemaAction($input->getOption('schema'));
+        $resetSchemaOption = $input->getOption('reset-schema');
+
+        if (!empty($resetSchemaOption)) {
+            $output->writeln('Resetting schema ...');
+            $this->getResetSchemaProcessor()->resetDoctrineSchema();
         }
 
         if (true === $input->hasOption('bundle')) {
@@ -143,6 +144,14 @@ class FixturesCommand extends ContainerAwareCommand
     private function getLoader()
     {
         return $this->getContainer()->get('knp_rad_fixtures_load.loader');
+    }
+
+    /**
+     * @return Knp\Rad\FixturesLoad\ResetDatabaseSchema
+     */
+    private function getResetSchemaProcessor()
+    {
+        return $this->getContainer()->get('knp_rad_fixtures_load.reset_schema_processor');
     }
 
     /**
