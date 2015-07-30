@@ -1,7 +1,8 @@
 {
     "name": "knplabs/rad-fixtures-load",
-    "description": "",
+    "description": "A command to load them all",
     "license": "MIT",
+    "keywords": ["Symfony2", "alice", "fixtures", "load", "command"],
     "authors": [
         {
             "name": "KNPLabs Team",
