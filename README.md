@@ -43,6 +43,11 @@ Just run the command
 app/console rad:fixtures:load
 ```
 
+Or if you need both resetting your schema, just add -r option
+```bash
+app/console rad:fixtures:load -r
+```
+
 ##Load fixtures of specific bundles
 
 I've got two bundles, `App` and `Api`.
