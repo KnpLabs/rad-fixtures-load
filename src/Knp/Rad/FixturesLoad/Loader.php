@@ -6,6 +6,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Doctrine\ORM\Tools\SchemaTool;
 
 class Loader
 {
@@ -39,6 +40,21 @@ class Loader
         $this->doctrine   = $doctrine;
         $this->factory    = $factory;
         $this->dispatcher = $dispatcher;
+    }
+
+    /**
+     * @param bool $action
+     */
+    public function performSchemaAction($action = false)
+    {
+        $manager = $this->doctrine->getManager();
+        $schemaTool = new SchemaTool($manager);
+
+        if( 'create' !== $action){
+            $schemaTool->dropDatabase();
+        }
+
+        $schemaTool->createSchema($manager->getMetadataFactory()->getAllMetadata());
     }
 
     /**

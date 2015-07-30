@@ -48,6 +48,12 @@ class FixturesCommand extends ContainerAwareCommand
                 'Locale for faked fixtures',
                 'en_US'
             )
+            ->addOption(
+                'schema',
+                'a',
+                InputOption::VALUE_OPTIONAL,
+                'Perform action on DB schema'
+            )
         ;
     }
 
@@ -61,6 +67,12 @@ class FixturesCommand extends ContainerAwareCommand
 
         if (false === $application instanceof Application) {
             throw new \RuntimeException('Only Symfony\Bundle\FrameworkBundle\Console\Application supported.');
+        }
+
+        if (true === $input->hasOption('schema') &&
+            ('create' === $input->getOption('schema') || ('drop-create' === $input->getOption('schema')))
+        ) {
+            $this->getLoader()->performSchemaAction($input->getOption('schema'));
         }
 
         if (true === $input->hasOption('bundle')) {
