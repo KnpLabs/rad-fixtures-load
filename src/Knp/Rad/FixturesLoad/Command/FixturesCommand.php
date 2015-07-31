@@ -51,7 +51,7 @@ class FixturesCommand extends ContainerAwareCommand
             ->addOption(
                 'reset-schema',
                 'r',
-                InputOption::VALUE_OPTIONAL,
+                InputOption::VALUE_NONE,
                 'Reset DB schema before loading fixtures'
             )
         ;
@@ -67,13 +67,6 @@ class FixturesCommand extends ContainerAwareCommand
 
         if (false === $application instanceof Application) {
             throw new \RuntimeException('Only Symfony\Bundle\FrameworkBundle\Console\Application supported.');
-        }
-
-        $resetSchemaOption = $input->getOption('reset-schema');
-
-        if (!empty($resetSchemaOption)) {
-            $output->writeln('Resetting schema ...');
-            $this->getResetSchemaProcessor()->resetDoctrineSchema();
         }
 
         $bundles = $input->getOption('bundle');
@@ -96,6 +89,11 @@ class FixturesCommand extends ContainerAwareCommand
         foreach ($formaters as $formater) {
             $dispatcher->addListener(Events::PRE_LOAD,   [$formater,  'preLoad']);
             $dispatcher->addListener(Events::POST_LOAD,  [$formater,  'postLoad']);
+        }
+
+        if (true === $input->getOption('reset-schema')) {
+            $output->writeln('Resetting schema ...');
+            $this->getResetSchemaProcessor()->resetDoctrineSchema();
         }
 
         foreach ($bundles as $bundle) {
