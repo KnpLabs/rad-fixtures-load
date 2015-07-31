@@ -76,20 +76,15 @@ class FixturesCommand extends ContainerAwareCommand
             $this->getResetSchemaProcessor()->resetDoctrineSchema();
         }
 
-        if (true === $input->hasOption('bundle')) {
-            $bundles = $input->getOption('bundle');
-        }
+        $bundles = $input->getOption('bundle');
 
         if (true === empty($bundles)) {
             $bundles = array_keys($application->getKernel()->getBundles());
         }
 
         $bundles = $this->resolveBundles($bundles);
-        $filters = [];
 
-        if (true === $input->hasOption('filter')) {
-            $filters = array_map(function ($e) { return sprintf('*.%s.yml', $e); }, $input->getOption('filter'));
-        }
+        $filters = array_map(function ($e) { return sprintf('*.%s.yml', $e); }, $input->getOption('filter'));
 
         if (true === empty($filters)) {
             $filters = ['*.yml'];
