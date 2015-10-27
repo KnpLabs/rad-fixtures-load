@@ -4,7 +4,6 @@ namespace Knp\Rad\FixturesLoad;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Nelmio\Alice\Fixtures;
-use Nelmio\Alice\Persister\Doctrine;
 use Nelmio\Alice\ProcessorInterface;
 
 class FixturesFactory
@@ -59,8 +58,6 @@ class FixturesFactory
             $options['locale'] = $locale;
         }
 
-        $doctrinePersister = new Doctrine($om);
-
-        return new Fixtures($doctrinePersister, $options, $this->processors);
+        return new Fixtures($om, $options, $this->processors);
     }
 }
