@@ -2,6 +2,7 @@
 
 namespace Knp\Rad\FixturesLoad\Bundle;
 
+use Knp\Rad\FixturesLoad\DependencyInjection\Compiler\FactorySwitcherPass;
 use Knp\Rad\FixturesLoad\DependencyInjection\Compiler\ProcessorRegistrationPass;
 use Knp\Rad\FixturesLoad\DependencyInjection\Compiler\ProviderRegistrationPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,6 +15,7 @@ class FixturesLoadBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
+        $container->addCompilerPass(new FactorySwitcherPass());
         $container->addCompilerPass(new ProcessorRegistrationPass());
         $container->addCompilerPass(new ProviderRegistrationPass());
     }

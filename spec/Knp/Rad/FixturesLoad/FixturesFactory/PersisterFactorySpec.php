@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\Knp\Rad\FixturesLoad;
+namespace spec\Knp\Rad\FixturesLoad\FixturesFactory;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class FixturesFactorySpec extends ObjectBehavior
+class PersisterFactorySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
@@ -15,6 +15,10 @@ class FixturesFactorySpec extends ObjectBehavior
 
     function it_returns_a_fixtures_instance(ObjectManager $om)
     {
+        if (false === interface_exists('Nelmio\Alice\PersisterInterface')) {
+            return;
+        }
+
         $this->create($om)->shouldHaveType('Nelmio\Alice\Fixtures');
         $this->create($om, 'fr')->shouldHaveType('Nelmio\Alice\Fixtures');
     }

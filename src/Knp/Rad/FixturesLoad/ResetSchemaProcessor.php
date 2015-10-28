@@ -2,8 +2,8 @@
 
 namespace Knp\Rad\FixturesLoad;
 
-use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\SchemaTool;
 
 class ResetSchemaProcessor
 {
@@ -19,9 +19,9 @@ class ResetSchemaProcessor
 
     /**
      * @param EntityManager $manager
-     * @param SchemaTool $schemaTool
+     * @param SchemaTool    $schemaTool
      */
-    function __construct(EntityManager $manager, SchemaTool $schemaTool)
+    public function __construct(EntityManager $manager, SchemaTool $schemaTool)
     {
         $this->manager    = $manager;
         $this->schemaTool = $schemaTool;

@@ -4,44 +4,23 @@ namespace Knp\Rad\FixturesLoad;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Nelmio\Alice\Fixtures;
-use Nelmio\Alice\Persister\Doctrine;
 use Nelmio\Alice\ProcessorInterface;
 
-class FixturesFactory
+interface FixturesFactory
 {
-    /**
-     * @var ProcessorInterface[]
-     */
-    private $processors = [];
-
-    /**
-     * @var object[]
-     */
-    private $providers = [];
-
     /**
      * @param ProcessorInterface $processor
      *
      * @return FixturesFactory
      */
-    public function addProcessor(ProcessorInterface $processor)
-    {
-        $this->processors[] = $processor;
-
-        return $this;
-    }
+    public function addProcessor(ProcessorInterface $processor);
 
     /**
      * @param object $provider
      *
      * @return FixturesFactory
      */
-    public function addProvider($provider)
-    {
-        $this->providers[] = $provider;
-
-        return $this;
-    }
+    public function addProvider($provider);
 
     /**
      * @param ObjectManager $om
@@ -49,18 +28,5 @@ class FixturesFactory
      *
      * @return Fixtures
      */
-    public function create(ObjectManager $om, $locale = null)
-    {
-        $options = [
-            'providers' => $this->providers,
-        ];
-
-        if (null !== $locale) {
-            $options['locale'] = $locale;
-        }
-
-        $doctrinePersister = new Doctrine($om);
-
-        return new Fixtures($doctrinePersister, $options, $this->processors);
-    }
+    public function create(ObjectManager $om, $locale = null);
 }
