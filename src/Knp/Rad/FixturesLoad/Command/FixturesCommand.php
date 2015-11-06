@@ -109,7 +109,7 @@ class FixturesCommand extends ContainerAwareCommand
     /**
      * @param string[] $names
      *
-     * @return Symfony\Component\HttpKernel\Bundle\Bundle[]
+     * @return \Symfony\Component\HttpKernel\Bundle\Bundle[]
      */
     private function resolveBundles(array $names)
     {
@@ -132,7 +132,7 @@ class FixturesCommand extends ContainerAwareCommand
     }
 
     /**
-     * @return Knp\Rad\FixturesLoad\Loader
+     * @return \Knp\Rad\FixturesLoad\Loader
      */
     private function getLoader()
     {
@@ -140,7 +140,7 @@ class FixturesCommand extends ContainerAwareCommand
     }
 
     /**
-     * @return Knp\Rad\FixturesLoad\ResetDatabaseSchema
+     * @return \Knp\Rad\FixturesLoad\ResetSchemaProcessor
      */
     private function getResetSchemaProcessor()
     {
@@ -151,7 +151,7 @@ class FixturesCommand extends ContainerAwareCommand
      * @param OutputInterface $output
      * @param boolean         $verbosity
      *
-     * @return Formater[]
+     * @return \Knp\Rad\FixturesLoad\Formater[]
      */
     private function getFormaters(OutputInterface $output, $verbosity)
     {
