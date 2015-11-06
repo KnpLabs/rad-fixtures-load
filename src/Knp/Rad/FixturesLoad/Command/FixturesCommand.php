@@ -35,11 +35,10 @@ class FixturesCommand extends ContainerAwareCommand
                 'Filter importable files via name suffix (dev => *.dev.yml).'
             )
             ->addOption(
-                'connection',
-                'c',
+                'manager',
+                'm',
                 InputOption::VALUE_OPTIONAL,
-                'Doctrine connection to use',
-                'default'
+                'Doctrine connection to use'
             )
             ->addOption(
                 'locale',
@@ -100,7 +99,7 @@ class FixturesCommand extends ContainerAwareCommand
             $this->getLoader()->loadFixtures(
                 $bundle,
                 $filters,
-                $input->getOption('connection'),
+                $input->getOption('manager'),
                 $input->getOption('locale')
             );
         }
