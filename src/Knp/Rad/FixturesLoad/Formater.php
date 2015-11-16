@@ -18,7 +18,7 @@ interface Formater
     public function setOutput(OutputInterface $output);
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getVerbosity();
 

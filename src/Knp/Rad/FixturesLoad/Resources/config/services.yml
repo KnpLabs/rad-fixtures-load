@@ -6,8 +6,11 @@ services:
             - @knp_rad_fixtures_load.fixtures_factory
             - @event_dispatcher
 
-    knp_rad_fixtures_load.fixtures_factory:
-        class: Knp\Rad\FixturesLoad\FixturesFactory
+    knp_rad_fixtures_load.fixtures_factory.legacy_factory:
+        class: Knp\Rad\FixturesLoad\FixturesFactory\LegacyFactory
+
+    knp_rad_fixtures_load.fixtures_factory.persister_factory:
+        class: Knp\Rad\FixturesLoad\FixturesFactory\PersisterFactory
 
     knp_rad_fixtures_load.reset_schema_processor:
         class: Knp\Rad\FixturesLoad\ResetSchemaProcessor

@@ -25,13 +25,13 @@ class FixturesCommand extends ContainerAwareCommand
             ->addOption(
                 'bundle',
                 'b',
-                InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY,
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Bundles where fixtures shouls be loaded'
             )
             ->addOption(
                 'filter',
                 'f',
-                InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY,
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Filter importable files via name suffix (dev => *.dev.yml).'
             )
             ->addOption(
@@ -148,7 +148,7 @@ class FixturesCommand extends ContainerAwareCommand
 
     /**
      * @param OutputInterface $output
-     * @param boolean         $verbosity
+     * @param bool            $verbosity
      *
      * @return \Knp\Rad\FixturesLoad\Formater[]
      */

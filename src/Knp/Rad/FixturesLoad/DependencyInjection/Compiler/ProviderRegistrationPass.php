@@ -14,10 +14,11 @@ class ProviderRegistrationPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $providers = $container->findTaggedServiceIds('knp_rad_fixtures_load.provider');
-        $listener  = $container->getDefinition('knp_rad_fixtures_load.fixtures_factory');
+        $alias     = $container->getAlias('knp_rad_fixtures_load.fixtures_factory');
+        $factory   = $container->getDefinition($alias);
 
         foreach ($providers as $id => $tags) {
-            $listener
+            $factory
                 ->addMethodCall('addProvider', [new Reference($id)])
             ;
         }
