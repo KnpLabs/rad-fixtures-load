@@ -10,7 +10,7 @@ This library uses the awesome [nelmio/alice](https://github.com/nelmio/alice) li
 #Installation
 
 ```bash
-composer require knplabs/rad-fixtures-load ~1.0
+composer require knplabs/rad-fixtures-load:~1.0
 ```
 
 ```php
