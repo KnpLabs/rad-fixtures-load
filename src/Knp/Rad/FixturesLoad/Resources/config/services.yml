@@ -15,10 +15,4 @@ services:
     knp_rad_fixtures_load.reset_schema_processor:
         class: Knp\Rad\FixturesLoad\ResetSchemaProcessor
         arguments:
-            - @doctrine.orm.entity_manager
-            - @knp_rad_fixtures_load.schema_tool
-
-    knp_rad_fixtures_load.schema_tool:
-        class: Doctrine\ORM\Tools\SchemaTool
-        arguments:
-            - @doctrine.orm.entity_manager
+            - @doctrine
