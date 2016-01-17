@@ -92,7 +92,9 @@ class FixturesCommand extends ContainerAwareCommand
 
         if (true === $input->getOption('reset-schema')) {
             $output->writeln('Resetting schema ...');
-            $this->getResetSchemaProcessor()->resetDoctrineSchema();
+            $this->getResetSchemaProcessor()->resetDoctrineSchema(
+                $input->getOption('manager')
+            );
         }
 
         foreach ($bundles as $bundle) {

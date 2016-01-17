@@ -2,36 +2,36 @@
 
 namespace Knp\Rad\FixturesLoad;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\SchemaTool;
 
 class ResetSchemaProcessor
 {
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var \Doctrine\Common\Persistence\ManagerRegistry
      */
-    private $manager;
+    private $doctrine;
 
     /**
-     * @var \Doctrine\ORM\Tools\SchemaTool
+     * @param ManagerRegistry $doctrine
      */
-    private $schemaTool;
-
-    /**
-     * @param EntityManager $manager
-     * @param SchemaTool    $schemaTool
-     */
-    public function __construct(EntityManager $manager, SchemaTool $schemaTool)
+    public function __construct(ManagerRegistry $doctrine)
     {
-        $this->manager    = $manager;
-        $this->schemaTool = $schemaTool;
+        $this->doctrine   = $doctrine;
     }
 
-    public function resetDoctrineSchema()
+    /**
+     * @param string|null $managerName
+     *
+     * @throws \Doctrine\ORM\Tools\ToolsException
+     */
+    public function resetDoctrineSchema($managerName = null)
     {
-        $metadata = $this->manager->getMetadataFactory()->getAllMetadata();
+        $manager = $this->doctrine->getManager($managerName);
+        $metadata = $manager->getMetadataFactory()->getAllMetadata();
+        $schemaTool = new SchemaTool($manager);
 
-        $this->schemaTool->dropSchema($metadata);
-        $this->schemaTool->createSchema($metadata);
+        $schemaTool->dropSchema($metadata);
+        $schemaTool->createSchema($metadata);
     }
 }
