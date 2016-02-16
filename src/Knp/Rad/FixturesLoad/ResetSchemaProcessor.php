@@ -17,7 +17,7 @@ class ResetSchemaProcessor
      */
     public function __construct(ManagerRegistry $doctrine)
     {
-        $this->doctrine   = $doctrine;
+        $this->doctrine = $doctrine;
     }
 
     /**
@@ -27,8 +27,8 @@ class ResetSchemaProcessor
      */
     public function resetDoctrineSchema($managerName = null)
     {
-        $manager = $this->doctrine->getManager($managerName);
-        $metadata = $manager->getMetadataFactory()->getAllMetadata();
+        $manager    = $this->doctrine->getManager($managerName);
+        $metadata   = $manager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($manager);
 
         $schemaTool->dropSchema($metadata);
