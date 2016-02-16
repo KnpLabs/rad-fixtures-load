@@ -4,7 +4,6 @@ namespace spec\Knp\Rad\FixturesLoad\Formater;
 
 use Knp\Rad\FixturesLoad\Event;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class FileFormaterSpec extends ObjectBehavior

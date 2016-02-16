@@ -4,7 +4,6 @@ namespace spec\Knp\Rad\FixturesLoad\FixturesFactory;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class LegacyFactorySpec extends ObjectBehavior
 {

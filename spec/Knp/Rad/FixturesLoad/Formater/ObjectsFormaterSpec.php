@@ -22,7 +22,7 @@ class ObjectsFormaterSpec extends ObjectBehavior
 
     function it_display_entities($event, $output)
     {
-        $event->getObjects()->willReturn([new Doubler, new Argument, new Doubler]);
+        $event->getObjects()->willReturn([new Doubler(), new Argument(), new Doubler()]);
         $output->writeln('        <comment>Prophecy\Doubler\Doubler</comment>: 2')->shouldBeCalled();
         $output->writeln('        <comment>Prophecy\Argument</comment>: 1')->shouldBeCalled();
 

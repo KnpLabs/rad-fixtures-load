@@ -74,9 +74,9 @@ class Loader
     /**
      * @param string $name
      *
-     * @return \Doctrine\Common\Persistence\ObjectManager
-     *
      * @throws \Exception
+     *
+     * @return \Doctrine\Common\Persistence\ObjectManager
      */
     private function getObjectManager($name)
     {
