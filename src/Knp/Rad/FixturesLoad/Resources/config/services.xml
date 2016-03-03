@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+  <services>
+
+    <service id="knp_rad_fixtures_load.loader" class="Knp\Rad\FixturesLoad\Loader">
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="knp_rad_fixtures_load.fixtures_factory"/>
+      <argument type="service" id="event_dispatcher"/>
+    </service>
+
+    <service id="knp_rad_fixtures_load.fixtures_factory.legacy_factory" class="Knp\Rad\FixturesLoad\FixturesFactory\LegacyFactory"/>
+
+    <service id="knp_rad_fixtures_load.fixtures_factory.persister_factory" class="Knp\Rad\FixturesLoad\FixturesFactory\PersisterFactory"/>
+
+    <service id="knp_rad_fixtures_load.reset_schema_processor" class="Knp\Rad\FixturesLoad\ResetSchemaProcessor">
+      <argument type="service" id="doctrine"/>
+    </service>
+
+  </services>
+</container>

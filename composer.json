@@ -24,8 +24,8 @@
         "phpspec/phpspec": "~2.1"
     },
     "autoload": {
-        "psr-0": {
-            "Knp\\Rad\\FixturesLoad\\": "src/"
+        "psr-4": {
+            "Knp\\Rad\\FixturesLoad\\": "src/Knp/Rad/FixturesLoad/"
         }
     },
     "config": {
