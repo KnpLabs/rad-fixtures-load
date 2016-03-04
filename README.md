@@ -4,6 +4,7 @@ A command to load them all
 
 [![Build Status](https://travis-ci.org/KnpLabs/rad-fixtures-load.svg?branch=master)](https://travis-ci.org/KnpLabs/rad-fixtures-load)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/KnpLabs/rad-fixtures-load/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/KnpLabs/rad-fixtures-load/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/knplabs/rad-fixtures-load/v/stable)](https://packagist.org/packages/knplabs/rad-fixtures-load) [![Total Downloads](https://poser.pugx.org/knplabs/rad-fixtures-load/downloads)](https://packagist.org/packages/knplabs/rad-fixtures-load) [![Latest Unstable Version](https://poser.pugx.org/knplabs/rad-fixtures-load/v/unstable)](https://packagist.org/packages/knplabs/rad-fixtures-load) [![License](https://poser.pugx.org/knplabs/rad-fixtures-load/license)](https://packagist.org/packages/knplabs/rad-fixtures-load)
 
 This library uses the awesome [nelmio/alice](https://github.com/nelmio/alice) library.
 
