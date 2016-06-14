@@ -20,7 +20,7 @@
         "symfony/http-kernel": "~2.3|~3.0"
     },
     "require-dev": {
-        "pedrotroller/php-cs-custom-fixer": "dev-master@dev",
+        "pedrotroller/php-cs-custom-fixer": "~1.2.1",
         "phpspec/phpspec": "~2.1"
     },
     "autoload": {
@@ -33,7 +33,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1.x-dev"
+            "dev-master": "2.0.x-dev"
         }
     }
 }
