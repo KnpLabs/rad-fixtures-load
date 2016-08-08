@@ -76,10 +76,12 @@ class FixturesCommand extends ContainerAwareCommand
 
         $bundles = $this->resolveBundles($bundles);
 
-        $filters = array_map(function ($e) { return sprintf('*.%s.yml', $e); }, $input->getOption('filter'));
-
+        $filters = [];
+        $filters = array_merge($filters, array_map(function ($e) { return sprintf('*.%s.yml', $e); }, $input->getOption('filter')));
+        $filters = array_merge($filters, array_map(function ($e) { return sprintf('*.%s.php', $e); }, $input->getOption('filter')));
+        
         if (true === empty($filters)) {
-            $filters = ['*.yml'];
+            $filters = ['*.yml', '*.php'];
         }
 
         $formaters  = $this->getFormaters($output, $input->getOption('verbose'));
