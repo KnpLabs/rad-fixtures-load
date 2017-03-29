@@ -3,7 +3,7 @@
 namespace Knp\Rad\FixturesLoad\Command;
 
 use Knp\Rad\FixturesLoad\Events;
-use Knp\Rad\FixturesLoad\Formater\BundleFormater;
+use Knp\Rad\FixturesLoad\Formater\PathFormater;
 use Knp\Rad\FixturesLoad\Formater\FileFormater;
 use Knp\Rad\FixturesLoad\Formater\ObjectsFormater;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -79,7 +79,7 @@ class FixturesCommand extends ContainerAwareCommand
         $filters = [];
         $filters = array_merge($filters, array_map(function ($e) { return sprintf('*.%s.yml', $e); }, $input->getOption('filter')));
         $filters = array_merge($filters, array_map(function ($e) { return sprintf('*.%s.php', $e); }, $input->getOption('filter')));
-        
+
         if (true === empty($filters)) {
             $filters = ['*.yml', '*.php'];
         }
@@ -99,9 +99,16 @@ class FixturesCommand extends ContainerAwareCommand
             );
         }
 
+        $this->getLoader()->loadFixtures(
+            $this->getKernelRootDir(),
+            $filters,
+            $input->getOption('manager'),
+            $input->getOption('locale')
+        );
+
         foreach ($bundles as $bundle) {
             $this->getLoader()->loadFixtures(
-                $bundle,
+                $bundle->getPath(),
                 $filters,
                 $input->getOption('manager'),
                 $input->getOption('locale')
@@ -150,6 +157,11 @@ class FixturesCommand extends ContainerAwareCommand
         return $this->getContainer()->get('knp_rad_fixtures_load.reset_schema_processor');
     }
 
+    private function getKernelRootDir()
+    {
+        return $this->getContainer()->getParameter('kernel.root_dir');
+    }
+
     /**
      * @param OutputInterface $output
      * @param bool            $verbosity
@@ -159,7 +171,7 @@ class FixturesCommand extends ContainerAwareCommand
     private function getFormaters(OutputInterface $output, $verbosity)
     {
         $formaters = [
-            new BundleFormater(),
+            new PathFormater(),
             new FileFormater(),
             new ObjectsFormater(),
         ];

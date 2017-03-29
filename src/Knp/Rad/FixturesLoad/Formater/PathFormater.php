@@ -6,17 +6,12 @@ use Knp\Rad\FixturesLoad\Event;
 use Knp\Rad\FixturesLoad\Formater;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class BundleFormater implements Formater
+class PathFormater implements Formater
 {
     /**
      * @var OutputInterface
      */
     private $output;
-
-    /**
-     * @var string
-     */
-    private $cache = [];
 
     /**
      * {@inheritdoc}
@@ -41,14 +36,7 @@ class BundleFormater implements Formater
      */
     public function preLoad(Event $event)
     {
-        $class = get_class($event->getBundle());
-
-        if (in_array($class, $this->cache)) {
-            return;
-        }
-
-        $this->output->writeln(sprintf('<fg=black;bg=green>#Bundle > %s </fg=black;bg=green>', $class));
-        $this->cache[] = $class;
+        $this->output->writeln(sprintf('<fg=black;bg=green>#Path > %s </fg=black;bg=green>', $event->getPath()));
     }
 
     /**

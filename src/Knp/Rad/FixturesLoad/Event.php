@@ -3,14 +3,13 @@
 namespace Knp\Rad\FixturesLoad;
 
 use Symfony\Component\EventDispatcher\Event as BaseEvent;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class Event extends BaseEvent
 {
     /**
-     * @var Bundle
+     * @var string
      */
-    private $bundle;
+    private $path;
 
     /**
      * @var string
@@ -23,12 +22,12 @@ class Event extends BaseEvent
     private $objects;
 
     /**
-     * @param Bundle $bundle
+     * @param string $path
      * @param string $file
      */
-    public function __construct(Bundle $bundle, $file)
+    public function __construct($path, $file)
     {
-        $this->bundle = $bundle;
+        $this->path = $path;
         $this->file   = $file;
     }
 
@@ -45,11 +44,11 @@ class Event extends BaseEvent
     }
 
     /**
-     * @return Bundle
+     * @return string
      */
-    public function getBundle()
+    public function getPath()
     {
-        return $this->bundle;
+        return $this->path;
     }
 
     /**
