@@ -8,10 +8,10 @@ A command to load them all
 
 This library uses the awesome [nelmio/alice](https://github.com/nelmio/alice) library.
 
-#Installation
+# Installation
 
 ```bash
-composer require knplabs/rad-fixtures-load:~1.0
+composer require --dev knplabs/rad-fixtures-load:~1.0
 ```
 
 ```php
@@ -32,11 +32,11 @@ class AppKernel
 }
 ```
 
-#Usages
+# Usages
 
 Inside your bundle, you have to store your Alice fixtures files into `Resources/fixtures/orm`.
 
-##Load fixtures of all bundles
+## Load fixtures of all bundles
 
 Just run the command
 
@@ -49,7 +49,7 @@ Or if you need both resetting your schema, just add -r option
 app/console rad:fixtures:load -r
 ```
 
-##Load fixtures of specific bundles
+## Load fixtures of specific bundles
 
 I've got two bundles, `App` and `Api`.
 
@@ -59,7 +59,7 @@ app/console rad:fixtures:load -b App -b Api
 
 The order is important. Fixtures will be loaded following this order.
 
-##Use file filtering
+## Use file filtering
 
 If I run this command
 
@@ -77,7 +77,7 @@ app/console rad:fixtures:load -f dev -f test
 
 In this case, order doesn't have any importance.
 
-##Use Alice provider or Alice processor
+## Use Alice provider or Alice processor
 
 You just have to tag your service with `knp_rad_fixtures_load.provider` or `knp_rad_fixtures_load.processor`.
 
