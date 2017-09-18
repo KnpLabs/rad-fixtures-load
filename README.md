@@ -8,6 +8,10 @@ A command to load them all
 
 This library uses the awesome [nelmio/alice](https://github.com/nelmio/alice) library.
 
+# Official maintainers:
+
+* [@Einenlum](https://github.com/Einenlum)
+
 # Installation
 
 ```bash
