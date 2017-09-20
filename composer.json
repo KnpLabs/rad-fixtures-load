@@ -13,7 +13,7 @@
         "doctrine/common": "~2.0",
         "doctrine/orm": "~2.0",
         "nelmio/alice": "~1.5||~2.0",
-        "php": ">=5.4",
+        "php": "~7.0",
         "symfony/dependency-injection": "~2.3|~3.0",
         "symfony/finder": "~2.3|~3.0",
         "symfony/framework-bundle": "~2.3|~3.0",
@@ -30,10 +30,5 @@
     },
     "config": {
         "bin-dir": "bin"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.0.x-dev"
-        }
     }
 }
