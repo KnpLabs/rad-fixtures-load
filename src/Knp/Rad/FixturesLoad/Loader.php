@@ -47,15 +47,15 @@ class Loader
      * @param string      $connection
      * @param string|null $locale
      */
-    public function loadFixtures(Bundle $bundle, array $filters, $connection, $locale = null)
+    public function loadFixtures($path, array $filters, $connection, $locale = null)
     {
-        if (false === is_dir(sprintf('%s/Resources/fixtures/orm', $bundle->getPath()))) {
+        if (false === is_dir(sprintf('%s/Resources/fixtures/orm', $path))) {
             return;
         }
 
         $files = (new Finder())
             ->files()
-            ->in(sprintf('%s/Resources/fixtures/orm', $bundle->getPath()))
+            ->in(sprintf('%s/Resources/fixtures/orm', $path))
             ->sortByName()
         ;
 
@@ -64,7 +64,7 @@ class Loader
         }
 
         foreach ($files as $file) {
-            $event = new Event($bundle, $file);
+            $event = new Event($path, $file);
             $this->dispatcher->dispatch(Events::PRE_LOAD, $event);
             $event->setObjects($this->getFixtures($connection, $locale)->loadFiles($file));
             $this->dispatcher->dispatch(Events::POST_LOAD, $event);
