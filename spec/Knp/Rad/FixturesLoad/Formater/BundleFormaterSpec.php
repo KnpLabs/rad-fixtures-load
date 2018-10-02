@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Knp\Rad\FixturesLoad\Formater;
 
 use Knp\Rad\FixturesLoad\Event;
@@ -37,8 +39,12 @@ class BundleFormaterSpec extends ObjectBehavior
         $this->preLoad($event);
     }
 
-    function it_write_bundles_names($event, Event $event2, Bundle $bundle2, $output)
-    {
+    function it_write_bundles_names(
+        $event,
+        Event $event2,
+        Bundle $bundle2,
+        $output
+    ) {
         $event2->getBundle()->willReturn($bundle2);
         $output->writeln(Argument::type('string'))->shouldBeCalledTimes(2);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad;
 
 use Symfony\Component\EventDispatcher\Event as BaseEvent;
@@ -23,7 +25,6 @@ class Event extends BaseEvent
     private $objects;
 
     /**
-     * @param Bundle $bundle
      * @param string $file
      */
     public function __construct(Bundle $bundle, $file)
@@ -32,30 +33,12 @@ class Event extends BaseEvent
         $this->file   = $file;
     }
 
-    /**
-     * @param object[] $objects
-     *
-     * @return event
-     */
-    public function setObjects(array $objects)
-    {
-        $this->objects = $objects;
-
-        return $this;
-    }
-
-    /**
-     * @return Bundle
-     */
-    public function getBundle()
+    public function getBundle(): Bundle
     {
         return $this->bundle;
     }
 
-    /**
-     * @return string
-     */
-    public function getFile()
+    public function getFile(): string
     {
         return $this->file;
     }
@@ -63,8 +46,16 @@ class Event extends BaseEvent
     /**
      * @return object[]
      */
-    public function getObjects()
+    public function getObjects(): array
     {
         return $this->objects;
+    }
+
+    /**
+     * @param object[] $objects
+     */
+    public function setObjects(array $objects)
+    {
+        $this->objects = $objects;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad\FixturesFactory;
 
 use Doctrine\Common\Persistence\ObjectManager;
@@ -25,8 +27,6 @@ class LegacyFactory implements FixturesFactory
     public function addProcessor(ProcessorInterface $processor)
     {
         $this->processors[] = $processor;
-
-        return $this;
     }
 
     /**
@@ -35,14 +35,12 @@ class LegacyFactory implements FixturesFactory
     public function addProvider($provider)
     {
         $this->providers[] = $provider;
-
-        return $this;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function create(ObjectManager $manager, $locale = null)
+    public function create(ObjectManager $manager, $locale = null): Fixtures
     {
         $options = [
             'providers' => $this->providers,

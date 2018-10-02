@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad;
 
 use Symfony\Component\Console\Output\OutputInterface;
@@ -10,29 +12,11 @@ interface Formater
 
     const VERBOSITY_EXTRA = true;
 
-    /**
-     * @param OutputInterface $output
-     *
-     * @return Formater
-     */
     public function setOutput(OutputInterface $output);
 
-    /**
-     * @return bool
-     */
-    public function getVerbosity();
+    public function getVerbosity(): bool;
 
-    /**
-     * @param Event $event
-     *
-     * @return Formater
-     */
     public function preLoad(Event $event);
 
-    /**
-     * @param Event $event
-     *
-     * @return Formater
-     */
     public function postLoad(Event $event);
 }

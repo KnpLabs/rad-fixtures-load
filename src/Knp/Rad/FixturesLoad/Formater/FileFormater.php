@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad\Formater;
 
 use Knp\Rad\FixturesLoad\Event;
@@ -19,14 +21,12 @@ class FileFormater implements Formater
     public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
-
-        return $this;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getVerbosity()
+    public function getVerbosity(): bool
     {
         return self::VERBOSITY_EXTRA;
     }

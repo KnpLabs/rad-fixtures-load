@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad\FixturesFactory;
 
 use Doctrine\Common\Persistence\ObjectManager;
@@ -11,7 +13,7 @@ class PersisterFactory extends LegacyFactory
     /**
      * {@inheritdoc}
      */
-    public function create(ObjectManager $om, $locale = null)
+    public function create(ObjectManager $om, $locale = null): Fixtures
     {
         $options = [
             'providers' => $this->providers,

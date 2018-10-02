@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad\Command;
 
 use Knp\Rad\FixturesLoad\Events;
-use Knp\Rad\FixturesLoad\Formater\BundleFormater;
-use Knp\Rad\FixturesLoad\Formater\FileFormater;
-use Knp\Rad\FixturesLoad\Formater\ObjectsFormater;
+use Knp\Rad\FixturesLoad\Formater;
+use Knp\Rad\FixturesLoad\Loader;
+use Knp\Rad\FixturesLoad\ResetSchemaProcessor;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
@@ -64,10 +67,6 @@ class FixturesCommand extends ContainerAwareCommand
         $application = $this->getApplication();
         $bundles     = [];
 
-        if (false === $application instanceof Application) {
-            throw new \RuntimeException('Only Symfony\Bundle\FrameworkBundle\Console\Application supported.');
-        }
-
         $bundles = $input->getOption('bundle');
 
         if (true === empty($bundles)) {
@@ -79,7 +78,7 @@ class FixturesCommand extends ContainerAwareCommand
         $filters = [];
         $filters = array_merge($filters, array_map(function ($e) { return sprintf('*.%s.yml', $e); }, $input->getOption('filter')));
         $filters = array_merge($filters, array_map(function ($e) { return sprintf('*.%s.php', $e); }, $input->getOption('filter')));
-        
+
         if (true === empty($filters)) {
             $filters = ['*.yml', '*.php'];
         }
@@ -88,8 +87,8 @@ class FixturesCommand extends ContainerAwareCommand
         $dispatcher = $this->getContainer()->get('event_dispatcher');
 
         foreach ($formaters as $formater) {
-            $dispatcher->addListener(Events::PRE_LOAD,   [$formater,  'preLoad']);
-            $dispatcher->addListener(Events::POST_LOAD,  [$formater,  'postLoad']);
+            $dispatcher->addListener(Events::PRE_LOAD, [$formater,  'preLoad']);
+            $dispatcher->addListener(Events::POST_LOAD, [$formater,  'postLoad']);
         }
 
         if (true === $input->getOption('reset-schema')) {
@@ -112,11 +111,19 @@ class FixturesCommand extends ContainerAwareCommand
     /**
      * @param string[] $names
      *
-     * @return \Symfony\Component\HttpKernel\Bundle\Bundle[]
+     * @throw RuntimeException
+     *
+     * @return array<string, \Symfony\Component\HttpKernel\Bundle\BundleInterface>
      */
-    private function resolveBundles(array $names)
+    private function resolveBundles(array $names): array
     {
-        $bundles = $this->getApplication()->getKernel()->getBundles();
+        $application = $this->getApplication();
+
+        if (false === $application instanceof Application) {
+            throw new RuntimeException('Only Symfony\Bundle\FrameworkBundle\Console\Application supported.');
+        }
+
+        $bundles = $application->getKernel()->getBundles();
         $result  = [];
 
         foreach ($names as $name) {
@@ -134,42 +141,33 @@ class FixturesCommand extends ContainerAwareCommand
         return $result;
     }
 
-    /**
-     * @return \Knp\Rad\FixturesLoad\Loader
-     */
-    private function getLoader()
+    private function getLoader(): Loader
     {
         return $this->getContainer()->get('knp_rad_fixtures_load.loader');
     }
 
-    /**
-     * @return \Knp\Rad\FixturesLoad\ResetSchemaProcessor
-     */
-    private function getResetSchemaProcessor()
+    private function getResetSchemaProcessor(): ResetSchemaProcessor
     {
         return $this->getContainer()->get('knp_rad_fixtures_load.reset_schema_processor');
     }
 
     /**
-     * @param OutputInterface $output
-     * @param bool            $verbosity
-     *
-     * @return \Knp\Rad\FixturesLoad\Formater[]
+     * @return Formater[]
      */
-    private function getFormaters(OutputInterface $output, $verbosity)
+    private function getFormaters(OutputInterface $output, bool $verbosity): array
     {
         $formaters = [
-            new BundleFormater(),
-            new FileFormater(),
-            new ObjectsFormater(),
+            new Formater\BundleFormater(),
+            new Formater\FileFormater(),
+            new Formater\ObjectsFormater(),
         ];
 
         foreach ($formaters as $formater) {
             $formater->setOutput($output);
         }
 
-        return array_filter($formaters, function ($e) use ($verbosity) {
-            return false === $verbosity ? $verbosity === $e->getVerbosity() : true;
+        return array_filter($formaters, function (Formater $formatter) use ($verbosity) {
+            return false === $verbosity ? $verbosity === $formatter->getVerbosity() : true;
         });
     }
 }

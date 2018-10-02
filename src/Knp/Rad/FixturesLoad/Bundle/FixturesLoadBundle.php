@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad\Bundle;
 
 use Knp\Rad\FixturesLoad\DependencyInjection\Compiler\FactorySwitcherPass;
 use Knp\Rad\FixturesLoad\DependencyInjection\Compiler\ProcessorRegistrationPass;
 use Knp\Rad\FixturesLoad\DependencyInjection\Compiler\ProviderRegistrationPass;
+use Knp\Rad\FixturesLoad\DependencyInjection\FixturesLoadExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -35,7 +38,7 @@ class FixturesLoadBundle extends Bundle
      */
     public function getPath()
     {
-        return dirname(parent::getPath());
+        return \dirname(parent::getPath());
     }
 
     /**
@@ -43,6 +46,6 @@ class FixturesLoadBundle extends Bundle
      */
     public function getContainerExtensionClass()
     {
-        return 'Knp\Rad\FixturesLoad\DependencyInjection\FixturesLoadExtension';
+        return FixturesLoadExtension::class;
     }
 }

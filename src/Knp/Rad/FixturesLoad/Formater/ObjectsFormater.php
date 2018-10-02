@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad\Formater;
 
 use Knp\Rad\FixturesLoad\Event;
@@ -19,14 +21,12 @@ class ObjectsFormater implements Formater
     public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
-
-        return $this;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getVerbosity()
+    public function getVerbosity(): bool
     {
         return self::VERBOSITY_EXTRA;
     }
@@ -36,7 +36,6 @@ class ObjectsFormater implements Formater
      */
     public function preLoad(Event $event)
     {
-        return;
     }
 
     /**
@@ -47,7 +46,7 @@ class ObjectsFormater implements Formater
         $entities = [];
 
         foreach ($event->getObjects() as $object) {
-            $class = get_class($object);
+            $class = \get_class($object);
             if (false === array_key_exists($class, $entities)) {
                 $entities[$class] = [];
             }
@@ -55,7 +54,7 @@ class ObjectsFormater implements Formater
         }
 
         foreach ($entities as $class => $instances) {
-            $this->output->writeln(sprintf('        <comment>%s</comment>: %s', $class, count($instances)));
+            $this->output->writeln(sprintf('        <comment>%s</comment>: %s', $class, \count($instances)));
         }
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Alias;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -12,9 +14,6 @@ class ResetSchemaProcessor
      */
     private $doctrine;
 
-    /**
-     * @param ManagerRegistry $doctrine
-     */
     public function __construct(ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;

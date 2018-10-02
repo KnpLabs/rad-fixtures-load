@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Knp\Rad\FixturesLoad\FixturesFactory;
 
 use Doctrine\Common\Persistence\ObjectManager;

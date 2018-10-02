@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Knp\Rad\FixturesLoad\Formater;
 
 use Knp\Rad\FixturesLoad\Event;
@@ -14,7 +16,7 @@ class BundleFormater implements Formater
     private $output;
 
     /**
-     * @var string
+     * @var string[]
      */
     private $cache = [];
 
@@ -24,14 +26,12 @@ class BundleFormater implements Formater
     public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
-
-        return $this;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getVerbosity()
+    public function getVerbosity(): bool
     {
         return self::VERBOSITY_NORMAL;
     }
@@ -41,9 +41,9 @@ class BundleFormater implements Formater
      */
     public function preLoad(Event $event)
     {
-        $class = get_class($event->getBundle());
+        $class = \get_class($event->getBundle());
 
-        if (in_array($class, $this->cache)) {
+        if (\in_array($class, $this->cache)) {
             return;
         }
 
@@ -56,6 +56,5 @@ class BundleFormater implements Formater
      */
     public function postLoad(Event $event)
     {
-        return;
     }
 }
