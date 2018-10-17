@@ -10,7 +10,8 @@ This library uses the awesome [nelmio/alice](https://github.com/nelmio/alice) li
 
 # Official maintainers:
 
-* [@Einenlum](https://github.com/Einenlum)
+* [@lcouellan](https://github.com/lcouellan)
+* [@AntoineLelaisant](https://github.com/AntoineLelaisant)
 
 # Installation
 
